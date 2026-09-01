@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Order Confirmed — ARCHIVE &amp; CO</title>
+<meta name="description" content="Your Archive &amp; Co order is confirmed.">
+<meta name="theme-color" content="#0a0a0b">
+<script>
+/* Reveal-on-scroll is opt-in: the .js class below is what lets style.css hide
+   content. If main.js never runs — blocked, 404, wrong folder — we take the
+   class back off so the page reads in full instead of rendering blank. */
+(function () {
+  var d = document.documentElement;
+  d.classList.add("js");
+  function failsafe() { if (!d.dataset.revealReady) d.classList.remove("js"); }
+  window.addEventListener("load", failsafe);
+  setTimeout(failsafe, 2000);
+})();
+</script>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="style.css">
+</head>
+<!-- announcement -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span data-when="closed">Ordering is currently closed — the archive stays open to browse</span>
+    <span data-when="open" hidden>Ordering is open — every piece is one of one</span>
+    <span>Every piece authenticated, cleaned and photographed in-house</span>
+    <span>New intake weekly</span>
+    <span>One of one — when it's gone, it's gone</span>
+    <span data-when="closed">Ordering is currently closed — the archive stays open to browse</span>
+    <span data-when="open" hidden>Ordering is open — every piece is one of one</span>
+    <span>Every piece authenticated, cleaned and photographed in-house</span>
+    <span>New intake weekly</span>
+    <span>One of one — when it's gone, it's gone</span>
+  </div>
+</div>
+
+<!-- nav -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">Archive <span class="amp">&amp;</span> Co</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="clothing.html">Clothing</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="returns.html">Returns</a>
+    </div>
+    <div class="nav-right">
+      <span class="nav-status" data-when="closed"><i class="dot"></i> Orders Closed</span>
+      <span class="nav-status" data-when="open" hidden><i class="dot is-open"></i> Orders Open</span>
+      <button class="burger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<header class="phead">
+  <div class="wrap">
+    <div class="crumb"><a href="index.html">Home</a> &nbsp;/&nbsp; Order</div>
+    <h1 data-ok-title>Thank<br>you</h1>
+    <p class="lede" data-ok-line>Your payment went through. We're getting it ready.</p>
+  </div>
+</header>
+
+<hr class="rule">
+
+<section class="section">
+  <div class="wrap">
+    <div data-ok-body></div>
+
+    <div class="note" style="margin-top:34px;max-width:60ch">
+      <b>What happens next</b>
+      <p>We'll email a confirmation, then pack and dispatch within 48 hours.
+         Everything ships tracked and insured. Questions about your order —
+         just reply to that email.</p>
+    </div>
+
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:30px">
+      <a class="btn btn-accent" href="clothing.html">Back to the archive <span class="arrow">→</span></a>
+      <a class="btn btn-ghost" href="account.html">Your account</a>
+    </div>
+  </div>
+</section>
+<!-- footer -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="display-sm">Archive <span class="amp">&amp;</span> Co</div>
+        <p>Pre-owned designer wear and pre-owned sneakers. Sourced with an eye, handled with care.</p>
+      </div>
+      <div>
+        <h5>Shop</h5>
+        <ul>
+          <li><a href="clothing.html#tops">T-Shirts &amp; Tops</a></li>
+          <li><a href="clothing.html#outerwear">Outerwear</a></li>
+          <li><a href="clothing.html#trousers">Trousers</a></li>
+          <li><a href="clothing.html#sneakers">Sneakers</a></li>
+          <li><a href="clothing.html#accessories">Accessories</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Info</h5>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="returns.html">Returns Policy</a></li>
+          <li><a href="terms.html">Terms &amp; Conditions</a></li>
+          <li><a href="returns.html#shipping">Shipping</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Get in touch</h5>
+        <ul>
+          <li><a href="mailto:ayaanxaslam@gmail.com">ayaanxaslam@gmail.com</a></li>
+          <li><a href="contact.html">Send a message</a></li>
+          <li><a href="contact.html">Dubai · Ships worldwide</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-base">
+      <span>© <span data-year></span> Archive &amp; Co — All rights reserved</span>
+      <span>Pre-owned · Authenticated · 1 of 1</span>
+    </div>
+  </div>
+</footer>
+
+<script src="products.js"></script>
+<script src="store.js"></script>
+<script src="main.js"></script>
+<script src="account.js"></script>
+<script>
+/* Shows what was just bought and clears it from the cart.
+   Stripe holds the actual sales record and emails the receipt. */
+(function () {
+  var body = document.querySelector("[data-ok-body]");
+  var gbp = function (n) { return "£" + Number(n).toLocaleString("en-GB"); };
+
+  var ids = [];
+  try { ids = JSON.parse(sessionStorage.getItem("ac_pending") || "[]"); } catch (e) {}
+
+  var hasSession = new URLSearchParams(location.search).has("session_id");
+  if (!hasSession) {
+    document.querySelector("[data-ok-title]").innerHTML = "Nothing<br>here";
+    document.querySelector("[data-ok-line]").textContent =
+      "This page confirms a completed order. Nothing to show right now.";
+    return;
+  }
+
+  var items = ids.map(function (id) {
+    return (typeof PRODUCTS !== "undefined" ? PRODUCTS : []).find(function (p) { return p.id === id; });
+  }).filter(Boolean);
+
+  if (items.length) {
+    body.innerHTML =
+      '<div class="order"><div class="order-head">' +
+        '<span class="order-id">Paid</span>' +
+        '<span class="order-total">' + gbp(items.reduce(function (s, p) { return s + p.price; }, 0)) + '</span>' +
+      '</div><div class="order-items">' +
+        items.map(function (p) {
+          return '<div class="order-line"><span>' + p.brand + " — " + p.name + "</span>" +
+                 '<span class="dim">Size ' + p.size + "</span><span>" + gbp(p.price) + "</span></div>";
+        }).join("") +
+      "</div></div>";
+  }
+
+  /* Take what they just bought out of the cart. The sale itself is recorded by
+     Stripe — this is only tidying up. */
+  if (ids.length && typeof Store !== "undefined" && Store.currentUser()) {
+    Store.clearPurchased(ids).catch(function () { /* payment already succeeded */ });
+  }
+
+  try { sessionStorage.removeItem("ac_pending"); } catch (e) {}
+})();
+</script>
+</body>
+</html>
